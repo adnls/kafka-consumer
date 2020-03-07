@@ -11,10 +11,17 @@ public class MyApp {
 
     public static void main(String[] args) {
 
-        new MyConsumer(GROUP)
-                .bootstrap(SERVER)
-                .subscribe(TOPIC)
-                .poll(PERIOD);
+        //test java singleton
 
+        MyConsumer
+                .getInstance()
+                .configure(
+                        false,
+                        "earliest")
+                .bootstrap(SERVER)
+                .join(GROUP)
+                .start()
+                .subscribeTo(TOPIC)
+                .poll(PERIOD);
     }
 }
